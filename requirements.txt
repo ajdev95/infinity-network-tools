@@ -3,3 +3,4 @@ concurrent.futures
 time
 colorama
 datetime
+bs4
