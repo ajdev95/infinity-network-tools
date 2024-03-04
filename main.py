@@ -19,9 +19,9 @@ def check_user_profile(username):
             has_bug_hunter = parse_badge(response.text, "bugHunter")
             has_premium = parse_badge(response.text, "Premium")
             
-            print(f"{Fore.LIGHTBLACK_EX}{current_time}{Fore.RESET} {Fore.LIGHTRED_EX}<+>{Fore.RESET} {Fore.RESET}{Fore.LIGHTRED_EX}{username}{Fore.RESET} is{Fore.LIGHTRED_EX} invalid!{Fore.RESET}{Fore.RESET} {Fore.LIGHTBLACK_EX}coins={Fore.RESET}{Fore.LIGHTWHITE_EX}{balance} coins {Fore.LIGHTBLACK_EX}infinity_founder={Fore.RESET}{has_infinity_founder} {Fore.LIGHTBLACK_EX}staff={Fore.RESET}{has_staff} {Fore.LIGHTBLACK_EX}developer={Fore.RESET}{has_developer} {Fore.LIGHTBLACK_EX}bug_hunter={Fore.RESET}{has_bug_hunter} {Fore.LIGHTBLACK_EX}premium={Fore.RESET}{has_premium}")
+            print(f"{Fore.LIGHTBLACK_EX}{current_time}{Fore.RESET} {Fore.LIGHTRED_EX}<+>{Fore.RESET} {Fore.RESET}{Fore.LIGHTRED_EX}{username}{Fore.RESET} is{Fore.LIGHTRED_EX} taken!{Fore.RESET}{Fore.RESET} {Fore.LIGHTBLACK_EX}coins={Fore.RESET}{Fore.LIGHTWHITE_EX}{balance} coins {Fore.LIGHTBLACK_EX}infinity_founder={Fore.RESET}{str(has_infinity_founder).lower()} {Fore.LIGHTBLACK_EX}staff={Fore.RESET}{str(has_staff).lower()} {Fore.LIGHTBLACK_EX}developer={Fore.RESET}{str(has_developer).lower()} {Fore.LIGHTBLACK_EX}bug_hunter={Fore.RESET}{str(has_bug_hunter).lower()} {Fore.LIGHTBLACK_EX}premium={Fore.RESET}{str(has_premium).lower()}")
         else:
-            print(f"{Fore.LIGHTBLACK_EX}{current_time}{Fore.RESET} {Fore.LIGHTGREEN_EX}<+>{Fore.RESET} {Fore.RESET}{Fore.LIGHTGREEN_EX}{username}{Fore.RESET} is{Fore.LIGHTGREEN_EX} valid!")
+            print(f"{Fore.LIGHTBLACK_EX}{current_time}{Fore.RESET} {Fore.LIGHTGREEN_EX}<+>{Fore.RESET} {Fore.RESET} {Fore.LIGHTBLACK_EX}username={Fore.RESET}{username} is not taken")
     except requests.RequestException as e:
         print(f"error checking this username {username}, error={e}")
 
@@ -47,7 +47,7 @@ def read_and_check_usernames(filename):
         print(f"{Fore.LIGHTBLACK_EX}{current_time}{Fore.RESET} {Fore.LIGHTGREEN_EX}<+>{Fore.RESET} {Fore.RESET}Successfully read the usernames from the file")
         print(f"{Fore.LIGHTBLACK_EX}{current_time}{Fore.RESET} {Fore.LIGHTBLUE_EX}<+>{Fore.RESET} {Fore.RESET}Checking usernames please wait..")
 
-        with ThreadPoolExecutor(max_workers=5) as executor:
+        with ThreadPoolExecutor(max_workers=10) as executor:
             executor.map(check_user_profile, usernames)
         
     except IOError as e:
